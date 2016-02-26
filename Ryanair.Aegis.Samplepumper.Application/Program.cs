@@ -13,7 +13,7 @@ namespace Ryanair.Aegis.Samplepumper.Application
 
         public override string ToString()
         {
-            return string.Format("{0}: {1}   {2}", IPAddress, Path, Time);
+            return string.Format("{0}", IPAddress);
         }
     }
 
@@ -59,22 +59,16 @@ namespace Ryanair.Aegis.Samplepumper.Application
 
             // Cache the current time
             var timeSample = DateTime.Now;
-            var second = timeSample.Second;
-
             var untrustworthyMetadata = new List<AegisMetadata>();
 
             // Create a list of sequential times, spaced by 1 second
             for (var i = 0; i < batchCount; i++)
             {
-                var time = new DateTime(timeSample.Year, timeSample.Month,
-                    timeSample.Day, timeSample.Hour, timeSample.Minute,
-                    second++);
-
                 untrustworthyMetadata.Add(new AegisMetadata
                 {
                     IPAddress = ipAddress,
                     Path = path,
-                    Time = time.ToString("O")
+                    Time = timeSample.AddSeconds(1).ToString("O")
                 });
             }
 
@@ -89,21 +83,27 @@ namespace Ryanair.Aegis.Samplepumper.Application
             // Randomise a large collection of HTTP metadata
 
             var trustworthy =
-                AegisMetadataGenerator.GenerateTrustworthyMetadata(10);
+                AegisMetadataGenerator.GenerateTrustworthyMetadata(100000);
 
             var untrustworthy =
-                AegisMetadataGenerator.GenerateUntrustworthyMetadata(5);
+                AegisMetadataGenerator.GenerateUntrustworthyMetadata(50000);
 
             var trustworthyTasks =
-                trustworthy.Select(aegisMetadata => Task.Run(() =>
+                trustworthy.Select(aegisMetadata => Task.Run(async () =>
                 {
+                    var random = new Random();
+                    await Task.Delay(random.Next(0, 101));
+
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine(aegisMetadata);
                 }));
 
             var untrustworthyTasks =
-                untrustworthy.Select(aegisMetadata => Task.Run(() =>
+                untrustworthy.Select(aegisMetadata => Task.Run(async () =>
                 {
+                    var random = new Random();
+                    await Task.Delay(random.Next(0, 101));
+
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(aegisMetadata);
                 }));
