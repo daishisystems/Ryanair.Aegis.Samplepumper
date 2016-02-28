@@ -13,7 +13,7 @@ namespace Ryanair.Aegis.Samplepumper.Application
 
         public override string ToString()
         {
-            return string.Format("{0}", IPAddress);
+            return string.Format("IP address:   {0}", IPAddress);
         }
     }
 
@@ -30,7 +30,7 @@ namespace Ryanair.Aegis.Samplepumper.Application
 
     internal static class AegisMetadataGenerator
     {
-        public static List<AegisMetadata> GenerateTrustworthyMetadata(
+        public static IEnumerable<AegisMetadata> GenerateTrustworthyMetadata(
             int batchCount)
         {
             var trustworthyMetadata = new List<AegisMetadata>();
@@ -48,7 +48,7 @@ namespace Ryanair.Aegis.Samplepumper.Application
             return trustworthyMetadata;
         }
 
-        public static List<AegisMetadata> GenerateUntrustworthyMetadata(
+        public static IEnumerable<AegisMetadata> GenerateUntrustworthyMetadata(
             int batchCount)
         {
 
@@ -80,45 +80,36 @@ namespace Ryanair.Aegis.Samplepumper.Application
     {
         private static void Main(string[] args)
         {
-            // Randomise a large collection of HTTP metadata
+            AsyncMain(args).Wait();
 
-            var trustworthy =
-                AegisMetadataGenerator.GenerateTrustworthyMetadata(100000);
-
-            var untrustworthy =
-                AegisMetadataGenerator.GenerateUntrustworthyMetadata(50000);
-
-            var trustworthyTasks =
-                trustworthy.Select(aegisMetadata => Task.Run(async () =>
-                {
-                    var random = new Random();
-                    await Task.Delay(random.Next(0, 101));
-
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine(aegisMetadata);
-                }));
-
-            var untrustworthyTasks =
-                untrustworthy.Select(aegisMetadata => Task.Run(async () =>
-                {
-                    var random = new Random();
-                    await Task.Delay(random.Next(0, 101));
-
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(aegisMetadata);
-                }));
-
-            Console.WriteLine("Begin output mixed-trust events...");
-            Task.WaitAny(trustworthyTasks.ToArray());
-            Task.WaitAny(untrustworthyTasks.ToArray());
-
-            // Asynchronously pump collection in batches to Azure Event Hub
-
-            // Introduce random wait-time
-
-            // Repeat step 2
-
+            Console.WriteLine("Done.");
             Console.ReadLine();
+        }
+
+        private static async Task AsyncMain(string[] args)
+        {
+            Console.WriteLine("Begin outputting mixed-trust events...");
+
+            await RunTasks(1500,
+                AegisMetadataGenerator.GenerateTrustworthyMetadata(10));
+
+            await RunTasks(1000,
+                AegisMetadataGenerator.GenerateUntrustworthyMetadata(2));
+        }
+
+        private static async Task RunTasks(int delayThreshhold,
+            IEnumerable<AegisMetadata> metadata)
+        {
+            var tasks =
+                metadata.Select(m => Task.Run(async () =>
+                {
+                    var random = new Random();
+                    await Task.Delay(random.Next(10, delayThreshhold));
+
+                    Console.WriteLine(m);
+                }));
+
+            await Task.WhenAll(tasks.ToArray());
         }
     }
 }
