@@ -15,32 +15,42 @@ namespace Ryanair.Aegis.Samplepumper.Application
 
         private static void Main(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Uploading metadata...");
 
+            var eventcounter = 0;
             var eventHubClient =
                 EventHubClient.CreateFromConnectionString(ConnectionString,
                     EventHubName);
 
             UploadMetadata(eventHubClient,
-                AegisMetadataGenerator.GenerateTrustworthyMetadata(10000));
+                AegisMetadataGenerator.GenerateTrustworthyMetadata(10000),
+                ref eventcounter);
             UploadMetadata(eventHubClient,
-                AegisMetadataGenerator.GenerateUntrustworthyMetadata(50));
+                AegisMetadataGenerator.GenerateUntrustworthyMetadata(50),
+                ref eventcounter);
             UploadMetadata(eventHubClient,
-                AegisMetadataGenerator.GenerateTrustworthyMetadata(2000));
+                AegisMetadataGenerator.GenerateTrustworthyMetadata(2000),
+                ref eventcounter);
             UploadMetadata(eventHubClient,
-                AegisMetadataGenerator.GenerateUntrustworthyMetadata(50));
+                AegisMetadataGenerator.GenerateUntrustworthyMetadata(50),
+                ref eventcounter);
 
             Console.WriteLine("Upload complete.");
             Console.ReadLine();
         }
 
         private static void UploadMetadata(EventHubClient client,
-            IEnumerable<AegisMetadata> metadata)
+            IEnumerable<AegisMetadata> metadata, ref int eventCounter)
         {
             foreach (var m in metadata)
             {
                 client.Send(new EventData(
                     Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(m))));
+
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("{0} events uploaded...", ++eventCounter);
             }
         }
     }
