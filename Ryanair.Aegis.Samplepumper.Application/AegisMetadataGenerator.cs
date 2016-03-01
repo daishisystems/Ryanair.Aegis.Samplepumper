@@ -26,9 +26,11 @@ namespace Ryanair.Aegis.Samplepumper.Application
         public static IEnumerable<AegisMetadata> GenerateUntrustworthyMetadata(
             int batchCount)
         {
-
             // Create a new IP address and unique path
             var ipAddress = RandomIPGenerator.Create();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(ipAddress);
+
             // Path does not need to conform to standard HTTP path-formatting
             var path = Guid.NewGuid().ToString();
 
@@ -43,8 +45,9 @@ namespace Ryanair.Aegis.Samplepumper.Application
                 {
                     IPAddress = ipAddress,
                     Path = path,
-                    Time = timeSample.AddSeconds(1).ToString("O")
+                    Time = timeSample.ToString("O")
                 });
+                timeSample = timeSample.AddSeconds(1);
             }
 
             return untrustworthyMetadata;

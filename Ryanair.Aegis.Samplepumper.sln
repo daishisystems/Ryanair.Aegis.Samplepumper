@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ryanair.Aegis.Samplepumper.Application", "Ryanair.Aegis.Samplepumper.Application\Ryanair.Aegis.Samplepumper.Application.csproj", "{976DF3CF-43F9-45D8-A2E3-794314917C3A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daishi.EventHub.Receiver", "..\..\Users\Paul\Documents\Visual Studio 2015\Projects\Daishi.EventHub.Sender\Daishi.EventHub.Receiver\Daishi.EventHub.Receiver.csproj", "{0F3727C2-127B-4C75-A09B-E13A931F2F76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{976DF3CF-43F9-45D8-A2E3-794314917C3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{976DF3CF-43F9-45D8-A2E3-794314917C3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{976DF3CF-43F9-45D8-A2E3-794314917C3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F3727C2-127B-4C75-A09B-E13A931F2F76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F3727C2-127B-4C75-A09B-E13A931F2F76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F3727C2-127B-4C75-A09B-E13A931F2F76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F3727C2-127B-4C75-A09B-E13A931F2F76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

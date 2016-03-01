@@ -8,10 +8,10 @@ namespace Ryanair.Aegis.Samplepumper.Application
 {
     internal class Program
     {
-        private const string EventHubName = "fraud-detection";
+        private const string EventHubName = "samplepumper";
 
         private const string ConnectionString =
-            "Endpoint=sb://fraud-detection-ns.servicebus.windows.net/;SharedAccessKeyName=AllRule;SharedAccessKey=eYsQ3l8VfFd1/COKp4QUD2MGQ4Sl5QwSqt4DL3rA/U4=";
+            "Endpoint=sb://ryanair-samplepumper.servicebus.windows.net/;SharedAccessKeyName=ALL;SharedAccessKey=ptn2jAbyjKdKEdNBoJELBzEMR84+qFo60YhQ4LvIr2I=";
 
         private static void Main(string[] args)
         {
@@ -23,18 +23,23 @@ namespace Ryanair.Aegis.Samplepumper.Application
                 EventHubClient.CreateFromConnectionString(ConnectionString,
                     EventHubName);
 
+            //UploadMetadata(eventHubClient,
+            //    AegisMetadataGenerator.GenerateTrustworthyMetadata(1000),
+            //    ref eventcounter);
             UploadMetadata(eventHubClient,
-                AegisMetadataGenerator.GenerateTrustworthyMetadata(10000),
+                AegisMetadataGenerator.GenerateUntrustworthyMetadata(10),
                 ref eventcounter);
             UploadMetadata(eventHubClient,
-                AegisMetadataGenerator.GenerateUntrustworthyMetadata(50),
+                AegisMetadataGenerator.GenerateTrustworthyMetadata(50),
                 ref eventcounter);
             UploadMetadata(eventHubClient,
-                AegisMetadataGenerator.GenerateTrustworthyMetadata(2000),
+                AegisMetadataGenerator.GenerateUntrustworthyMetadata(20),
                 ref eventcounter);
-            UploadMetadata(eventHubClient,
-                AegisMetadataGenerator.GenerateUntrustworthyMetadata(50),
-                ref eventcounter);
+            //UploadMetadata(eventHubClient,
+            //    AegisMetadataGenerator.GenerateTrustworthyMetadata(1000),
+            //    ref eventcounter);
+
+            eventHubClient.Close();
 
             Console.WriteLine("Upload complete.");
             Console.ReadLine();
@@ -48,9 +53,9 @@ namespace Ryanair.Aegis.Samplepumper.Application
                 client.Send(new EventData(
                     Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(m))));
 
-                Console.Clear();
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine("{0} events uploaded...", ++eventCounter);
+                //Console.Clear();
+                //Console.ForegroundColor = ConsoleColor.Yellow;
+                //Console.WriteLine("{0} events uploaded...", ++eventCounter);
             }
         }
     }
