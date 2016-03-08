@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ryanair.Aegis.Samplepumper.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daishi.EventHub.Receiver", "..\..\Users\Paul\Documents\Visual Studio 2015\Projects\Daishi.EventHub.Sender\Daishi.EventHub.Receiver\Daishi.EventHub.Receiver.csproj", "{0F3727C2-127B-4C75-A09B-E13A931F2F76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ryanair.Aegis.ElasticSearch.Playground", "Ryanair.Aegis.ElasticSearch.Playground\Ryanair.Aegis.ElasticSearch.Playground.csproj", "{74B72C7D-289F-4BDD-AC54-DD2AB74EDE0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ryanair.Aegis.Samplepumper.WebApplication", "Ryanair.Aegis.Samplepumper.WebApplication\Ryanair.Aegis.Samplepumper.WebApplication.csproj", "{C6A3E771-59AB-4E16-9E2D-7F60AAD88BE2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{0F3727C2-127B-4C75-A09B-E13A931F2F76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F3727C2-127B-4C75-A09B-E13A931F2F76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F3727C2-127B-4C75-A09B-E13A931F2F76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74B72C7D-289F-4BDD-AC54-DD2AB74EDE0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74B72C7D-289F-4BDD-AC54-DD2AB74EDE0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74B72C7D-289F-4BDD-AC54-DD2AB74EDE0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74B72C7D-289F-4BDD-AC54-DD2AB74EDE0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6A3E771-59AB-4E16-9E2D-7F60AAD88BE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6A3E771-59AB-4E16-9E2D-7F60AAD88BE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6A3E771-59AB-4E16-9E2D-7F60AAD88BE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6A3E771-59AB-4E16-9E2D-7F60AAD88BE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
